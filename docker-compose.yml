@@ -3,7 +3,7 @@ services:
   front:
     build: ./
     container_name: node
-    command: sh -c 'cd /front && yarn start'
+    command: sh -c 'cd /front && yarn dev'
     volumes:
       - ./front:/front
     working_dir: /front
@@ -13,3 +13,4 @@ services:
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
