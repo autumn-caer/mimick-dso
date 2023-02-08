@@ -5,19 +5,7 @@ import Head from "next/head";
 import Image from "next/image";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-import {
-  Box,
-  Center,
-  Grid,
-  GridItem,
-  Flex,
-  Square,
-  HStack,
-  ListItem,
-  UnorderedList,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem, Wrap, WrapItem } from "@chakra-ui/react";
 
 const name = "Your Name";
 export const siteTitle = "Next.js Sample Website";
@@ -29,6 +17,15 @@ export default function Layout({
   children: ReactElement;
   home: Boolean;
 }) {
+  const FOOTER_LINKS = [
+    { name: "クッキーポリシー", url: "" },
+    { name: "お問い合わせ", url: "" },
+    { name: "重要なお知らせ", url: "" },
+    { name: "サイトマップ", url: "" },
+    { name: "プライバシーポリシー", url: "" },
+    { name: "このサイトについて", url: "" },
+  ];
+
   return (
     <Box className={styles.container}>
       <Head>
@@ -102,163 +99,25 @@ export default function Layout({
 
           <GridItem colSpan={{ base: 1, sm: 1, md: 2, lg: 2 }}>
             <Wrap>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                aa
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                bb
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                cc
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                dd
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                ee
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                ff
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                gg
-              </WrapItem>
-              <WrapItem
-                flexBasis={[
-                  "calc(50% - 16px)",
-                  "40.66667%",
-                  "40.66667%",
-                  "30.83333%",
-                ]}
-                h="80px"
-                bg="red.200"
-              >
-                hh
-              </WrapItem>
+              {FOOTER_LINKS.map((footer_link) => {
+                return (
+                  <WrapItem
+                    flexBasis={["90%", "40.66667%", "40.66667%", "30.83333%"]}
+                    h="80px"
+                    bg="red.200"
+                  >
+                    <Link
+                      href={footer_link.url}
+                      className={utilStyles.colorInherit}
+                    >
+                      {footer_link.name}
+                    </Link>
+                  </WrapItem>
+                );
+              })}
             </Wrap>
           </GridItem>
         </Grid>
-        {/* <Flex>
-          <Box flexBasis="29.16667%">
-            <Center>Mimick-dsoss</Center>
-          </Box>
-          <Grid
-            h="300px"
-            templateRows="repeat(3, 1fr)"
-            templateColumns="repeat(3, 1fr)"
-            gap={4}
-            flexBasis="50.83333%"
-          >
-            <GridItem colSpan={1} bg="tomato">
-              <Center bg="green.500">
-                <Link href="/" className={utilStyles.colorInherit}>
-                  {name}
-                </Link>
-              </Center>
-            </GridItem>
-            <GridItem colSpan={1} bg="tomato">
-              <Center bg="green.500">
-                <Link href="/" className={utilStyles.colorInherit}>
-                  {name}
-                </Link>
-              </Center>
-            </GridItem>
-            <GridItem colSpan={1} bg="tomato">
-              <Center bg="green.500">
-                <Link href="/" className={utilStyles.colorInherit}>
-                  {name}
-                </Link>
-              </Center>
-            </GridItem>
-
-            <GridItem colSpan={1} bg="tomato">
-              <Center bg="green.500">
-                <Link href="/" className={utilStyles.colorInherit}>
-                  {name}
-                </Link>
-              </Center>
-            </GridItem>
-            <GridItem colSpan={1} bg="tomato">
-              <Center bg="green.500">
-                <Link href="/" className={utilStyles.colorInherit}>
-                  {name}
-                </Link>
-              </Center>
-            </GridItem>
-            <GridItem colSpan={1} bg="tomato">
-              <Center bg="green.500">
-                <Link href="/" className={utilStyles.colorInherit}>
-                  {name}
-                </Link>
-              </Center>
-            </GridItem>
-
-            <GridItem colSpan={3} bg="tomato" />
-          </Grid> */}
-        {/* </Flex> */}
       </footer>
     </Box>
   );
