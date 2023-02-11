@@ -5,7 +5,25 @@ import Head from "next/head";
 import Image from "next/image";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-import { Box, Center, Grid, GridItem, Wrap, WrapItem } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Grid,
+  GridItem,
+  Wrap,
+  WrapItem,
+  Container,
+  Stack,
+  Text,
+  Button,
+  ButtonGroup,
+  IconButton,
+  Divider,
+  Input,
+  Flex,
+  VStack,
+} from "@chakra-ui/react";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const name = "Your Name";
 export const siteTitle = "Next.js Sample Website";
@@ -24,6 +42,7 @@ export default function Layout({
     { name: "サイトマップ", url: "" },
     { name: "プライバシーポリシー", url: "" },
     { name: "このサイトについて", url: "" },
+    { name: "DSO WorldWide", url: "" },
   ];
 
   return (
@@ -82,43 +101,75 @@ export default function Layout({
           <Link href="/">← Back to home</Link>
         </div>
       )}
-      <footer className={styles.footer_content}>
-        <Grid
-          h="300px"
-          templateColumns={{
-            base: "repeat(1, 1fr)",
-            sm: "repeat(1, 1fr)",
-            md: "repeat(3, 1fr)",
-            lg: "repeat(3, 1fr)",
-          }}
-          gap={4}
+      <Container as="footer" role="contentinfo" maxWidth="90%">
+        <Stack
+          spacing="8"
+          direction={{ base: "column", md: "row" }}
+          justify="start"
+          py={{ base: "12", md: "16" }}
         >
-          <GridItem bg={["red.200", "yellow.200", "green.200", "blue.200"]}>
-            <Center>Mimick-dsossss</Center>
-          </GridItem>
-
-          <GridItem colSpan={{ base: 1, sm: 1, md: 2, lg: 2 }}>
-            <Wrap>
-              {FOOTER_LINKS.map((footer_link) => {
-                return (
-                  <WrapItem
-                    flexBasis={["90%", "40.66667%", "40.66667%", "30.83333%"]}
-                    h="80px"
-                    bg="red.200"
-                  >
-                    <Link
-                      href={footer_link.url}
-                      className={utilStyles.colorInherit}
-                    >
-                      {footer_link.name}
-                    </Link>
-                  </WrapItem>
-                );
-              })}
-            </Wrap>
-          </GridItem>
-        </Grid>
-      </footer>
+          <VStack
+            spacing="4"
+            minW="400"
+            shouldWrapChildren
+            justifyContent="center"
+          >
+            <Text color="muted">Mimick-dsossss1</Text>
+          </VStack>
+          <Wrap
+            minW="500"
+            w="600px"
+            direction={{ base: "row", md: "row", lg: "row" }}
+          >
+            {FOOTER_LINKS.map((footer_link) => {
+              return (
+                <WrapItem
+                  flexBasis={["90%", "40.66667%", "40.66667%", "30.83333%"]}
+                  h="80px"
+                  bg="red.200"
+                >
+                  <Button variant="link" className={utilStyles.colorInherit}>
+                    {footer_link.name}
+                  </Button>
+                </WrapItem>
+              );
+            })}
+          </Wrap>
+        </Stack>
+        <Divider />
+        <Stack
+          pt="8"
+          pb="12"
+          justify="space-between"
+          direction={{ base: "column-reverse", md: "row" }}
+          align="center"
+        >
+          <Text fontSize="sm" color="subtle">
+            &copy; {new Date().getFullYear()} Chakra UI Pro, Inc. All rights
+            reserved.
+          </Text>
+          <ButtonGroup variant="ghost">
+            <IconButton
+              as="a"
+              href="#"
+              aria-label="LinkedIn"
+              icon={<FaLinkedin fontSize="1.25rem" />}
+            />
+            <IconButton
+              as="a"
+              href="#"
+              aria-label="GitHub"
+              icon={<FaGithub fontSize="1.25rem" />}
+            />
+            <IconButton
+              as="a"
+              href="#"
+              aria-label="Twitter"
+              icon={<FaTwitter fontSize="1.25rem" />}
+            />
+          </ButtonGroup>
+        </Stack>
+      </Container>
     </Box>
   );
 }
