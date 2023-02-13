@@ -25,6 +25,8 @@ import {
 } from "@chakra-ui/react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+
 const name = "Your Name";
 export const siteTitle = "Next.js Sample Website";
 
@@ -101,6 +103,7 @@ export default function Layout({
           <Link href="/">← Back to home</Link>
         </div>
       )}
+      <Divider />
       <Container as="footer" role="contentinfo" maxWidth="90%">
         <Stack
           spacing="8"
@@ -110,27 +113,43 @@ export default function Layout({
         >
           <VStack
             spacing="4"
-            minW="400"
+            minW="300"
             shouldWrapChildren
             justifyContent="center"
           >
-            <Text color="muted">Mimick-dsossss1</Text>
+            <Image
+              className={styles.logo}
+              src="/logo.svg"
+              alt="Next.js Logo"
+              width={180}
+              height={37}
+              priority
+            />
           </VStack>
-          <Wrap
-            minW="500"
-            w="600px"
-            direction={{ base: "row", md: "row", lg: "row" }}
-          >
+          <Wrap maxW="700" direction={{ base: "row", md: "row", lg: "row" }}>
             {FOOTER_LINKS.map((footer_link) => {
               return (
                 <WrapItem
-                  flexBasis={["90%", "40.66667%", "40.66667%", "30.83333%"]}
+                  position="relative"
+                  flexBasis={["50%", "40.66667%", "40.66667%", "30.83333%"]}
+                  alignItems="center"
+                  justifyContent="start"
                   h="80px"
                   bg="red.200"
+                  as="a"
+                  href="#"
+                  cursor="pointer"
+                  _hover={{
+                    backgroundColor: "red.300",
+                    transition: "0.5s", //ホバーしたら出てくる
+                  }}
                 >
-                  <Button variant="link" className={utilStyles.colorInherit}>
-                    {footer_link.name}
-                  </Button>
+                  <IconButton
+                    variant="link"
+                    aria-label="LinkedIn"
+                    icon={<ArrowForwardIcon fontSize="1.25rem" />}
+                  />
+                  {footer_link.name}
                 </WrapItem>
               );
             })}
