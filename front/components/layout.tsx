@@ -2,30 +2,11 @@ import { ReactElement } from "react";
 import styles from "./layout.module.css";
 
 import Head from "next/head";
-import Image from "next/image";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-import {
-  Box,
-  Center,
-  Grid,
-  GridItem,
-  Wrap,
-  WrapItem,
-  Container,
-  Stack,
-  Text,
-  Button,
-  ButtonGroup,
-  IconButton,
-  Divider,
-  Input,
-  Flex,
-  VStack,
-} from "@chakra-ui/react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Navbar } from "./nav_bar";
+import { Footer } from "./footer";
+import { Box, Divider } from "@chakra-ui/react";
 
 const name = "Your Name";
 export const siteTitle = "Next.js Sample Website";
@@ -37,16 +18,6 @@ export default function Layout({
   children: ReactElement;
   home: Boolean;
 }) {
-  const FOOTER_LINKS = [
-    { name: "クッキーポリシー", url: "" },
-    { name: "お問い合わせ", url: "" },
-    { name: "重要なお知らせ", url: "" },
-    { name: "サイトマップ", url: "" },
-    { name: "プライバシーポリシー", url: "" },
-    { name: "このサイトについて", url: "" },
-    { name: "DSO WorldWide", url: "" },
-  ];
-
   return (
     <Box className={styles.container}>
       <Head>
@@ -64,39 +35,7 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt=""
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt=""
-              />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
-          </>
-        )}
-      </header>
+      <Navbar />
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
@@ -104,91 +43,7 @@ export default function Layout({
         </div>
       )}
       <Divider />
-      <Container as="footer" role="contentinfo" maxWidth="90%">
-        <Stack
-          spacing="8"
-          direction={{ base: "column", md: "row" }}
-          justify="start"
-          py={{ base: "12", md: "16" }}
-        >
-          <VStack
-            spacing="4"
-            minW="300"
-            shouldWrapChildren
-            justifyContent="center"
-          >
-            <Image
-              className={styles.logo}
-              src="/logo.svg"
-              alt="Next.js Logo"
-              width={180}
-              height={37}
-              priority
-            />
-          </VStack>
-          <Wrap maxW="700" direction={{ base: "row", md: "row", lg: "row" }}>
-            {FOOTER_LINKS.map((footer_link) => {
-              return (
-                <WrapItem
-                  position="relative"
-                  flexBasis={["50%", "40.66667%", "40.66667%", "30.83333%"]}
-                  alignItems="center"
-                  justifyContent="start"
-                  h="80px"
-                  bg="red.200"
-                  as="a"
-                  href="#"
-                  cursor="pointer"
-                  _hover={{
-                    backgroundColor: "red.300",
-                    transition: "0.5s", //ホバーしたら出てくる
-                  }}
-                >
-                  <IconButton
-                    variant="link"
-                    aria-label="LinkedIn"
-                    icon={<ArrowForwardIcon fontSize="1.25rem" />}
-                  />
-                  {footer_link.name}
-                </WrapItem>
-              );
-            })}
-          </Wrap>
-        </Stack>
-        <Divider />
-        <Stack
-          pt="8"
-          pb="12"
-          justify="space-between"
-          direction={{ base: "column-reverse", md: "row" }}
-          align="center"
-        >
-          <Text fontSize="sm" color="subtle">
-            &copy; {new Date().getFullYear()} Chakra UI Pro, Inc. All rights
-            reserved.
-          </Text>
-          <ButtonGroup variant="ghost">
-            <IconButton
-              as="a"
-              href="#"
-              aria-label="LinkedIn"
-              icon={<FaLinkedin fontSize="1.25rem" />}
-            />
-            <IconButton
-              as="a"
-              href="#"
-              aria-label="GitHub"
-              icon={<FaGithub fontSize="1.25rem" />}
-            />
-            <IconButton
-              as="a"
-              href="#"
-              aria-label="Twitter"
-              icon={<FaTwitter fontSize="1.25rem" />}
-            />
-          </ButtonGroup>
-        </Stack>
-      </Container>
+      <Footer />
     </Box>
   );
 }
