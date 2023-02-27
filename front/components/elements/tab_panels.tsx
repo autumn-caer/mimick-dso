@@ -17,7 +17,10 @@ export const TabPanels: React.FC<TabPanelsPorps> = ({
     ? flexBasis
     : ["100%", "48%", "48%", "30.83333%"];
   return (
-    <Wrap maxW="700" direction={{ base: "row", md: "row", lg: "row" }}>
+    <Wrap
+      w={{ base: "100%", md: "100%", lg: "100%" }}
+      direction={{ base: "row", md: "row", lg: "row" }}
+    >
       {tabPanels.map((footer_link) => {
         return (
           <WrapItem
@@ -25,11 +28,13 @@ export const TabPanels: React.FC<TabPanelsPorps> = ({
             flexBasis={DEFAULT_FLEX_BASIS}
             alignItems="center"
             justifyContent="start"
-            h="80px"
+            h="40px"
             bg="red.200"
             as="a"
+            fontSize="14px"
             href="#"
             cursor="pointer"
+            lineHeight="1.8"
             _hover={{
               backgroundColor: "red.300",
               transition: "0.5s", //ホバーしたら出てくる

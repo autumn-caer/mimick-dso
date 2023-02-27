@@ -7,6 +7,7 @@ import {
   IconButton,
   Button,
   Stack,
+  HStack,
   Collapse,
   Icon,
   Link,
@@ -27,12 +28,12 @@ import {
 
 import { TabPanels } from "./elements/tab_panels";
 import { TabPanel, NavItem } from "../interfaces";
-import { Placeholder } from "./elements/place_holder";
-import Image from "next/image";
-import styles from "./layout.module.css";
-import LogoImage from "../public/logo.svg";
+
 export const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const [showCollapseIndex, setShowCollapseIndex] = useControllableState({
+    defaultValue: -1,
+  });
 
   return (
     <Box>
@@ -49,7 +50,6 @@ export const Navbar = () => {
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
-          ml={{ base: -2 }}
           display={{ base: "flex", md: "none" }}
         >
           <IconButton
@@ -70,8 +70,11 @@ export const Navbar = () => {
             Logo
           </Text>
 
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
-            <DesktopNav />
+          <Flex display={{ base: "none", md: "flex" }}>
+            <DesktopNav
+              showCollapseIndex={showCollapseIndex}
+              setShowCollapseIndex={setShowCollapseIndex}
+            />
           </Flex>
         </Flex>
       </Flex>
@@ -79,30 +82,27 @@ export const Navbar = () => {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
+
+      <NavContents showCollapseIndex={showCollapseIndex} />
     </Box>
   );
 };
 
-const DesktopNav = () => {
+interface DesktopNavPorps {
+  showCollapseIndex: number;
+  setShowCollapseIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const DesktopNav: React.FC<DesktopNavPorps> = ({
+  showCollapseIndex,
+  setShowCollapseIndex,
+}) => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
-  const [showCollapseIndex, setShowCollapseIndex] = useControllableState({
-    defaultValue: -1,
-  });
-
-  const FOOTER_LINKS: Array<TabPanel> = [
-    { name: "クッキーポリシー", url: "" },
-    { name: "お問い合わせ", url: "" },
-    { name: "重要なお知らせ", url: "" },
-    { name: "サイトマップ", url: "" },
-    { name: "プライバシーポリシー", url: "" },
-    { name: "このサイトについて", url: "" },
-    { name: "DSO WorldWide", url: "" },
-  ];
   return (
-    <Box>
+    <Box width="100%">
       <Stack direction={"row"} spacing={4}>
         {NAV_ITEMS.map((navItem, i) => (
           <Box
@@ -148,39 +148,49 @@ const DesktopNav = () => {
           </Box>
         ))}
       </Stack>
+    </Box>
+  );
+};
+
+interface NavContents {
+  showCollapseIndex: number;
+}
+
+const NavContents: React.FC<NavContents> = ({ showCollapseIndex }) => {
+  return (
+    <>
       {NAV_ITEMS.map((navItem, i) => (
         <Collapse in={showCollapseIndex == i} animateOpacity>
           <Stack
-            direction={{ base: "column", md: "row" }}
+            spacing="8"
+            direction={["column", "column", "column", "row"]}
+            justify="start"
             py={{ base: "12", md: "16" }}
-            className="aiuy"
           >
-            <Stack
-              spacing="8"
-              direction="column"
-              justify="start"
-              py={{ base: "12", md: "16" }}
-            >
-              <VStack
-                spacing="4"
-                minW="200"
-                shouldWrapChildren
-                justifyContent="center"
-              >
-                <Stack>
-                  <Box width={400} height="80px" bgImage="url('/logo.svg')" />
-                </Stack>
+            {navItem.tabPanelsList &&
+              navItem.tabPanelsList.map((tabPanels, _) => {
+                return (
+                  <VStack
+                    spacing="4"
+                    justifyContent="start"
+                    w="33%"
+                    flexBasis="33%"
+                  >
+                    <Stack w="100%">
+                      <Box height="80px" bgImage="url('/logo.svg')" />
+                    </Stack>
 
-                <TabPanels
-                  tabPanels={navItem.tabPanels ? navItem.tabPanels : []}
-                  flexBasis={["100%", "48%", "48%", "48%"]}
-                />
-              </VStack>
-            </Stack>
+                    <TabPanels
+                      tabPanels={tabPanels ? tabPanels : []}
+                      flexBasis={["100%", "100%", "100%", "100%"]}
+                    />
+                  </VStack>
+                );
+              })}
           </Stack>
         </Collapse>
       ))}
-    </Box>
+    </>
   );
 };
 
@@ -303,15 +313,29 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
       },
     ],
-    tabPanels: [
-      { name: "会社概要", url: "" },
-      { name: "理念", url: "" },
-      { name: "経営方針", url: "" },
-      { name: "役員", url: "" },
-      { name: "グローバル拠点情報", url: "" },
-      { name: "スポーツ・展示ホール・工場見学", url: "" },
-      { name: "ブランドパーパス", url: "" },
-      { name: "プロモーション", url: "" },
+
+    tabPanelsList: [
+      [
+        { name: "会社概要", url: "" },
+        { name: "理念", url: "" },
+        { name: "経営方針", url: "" },
+        { name: "役員", url: "" },
+        { name: "グローバル拠点情報", url: "" },
+        { name: "スポーツ・展示ホール・工場見学", url: "" },
+        { name: "ブランドパーパス", url: "" },
+        { name: "プロモーション", url: "" },
+      ],
+      [
+        { name: "CEOメッセージ", url: "" },
+        { name: "サステナビリティマネジメント", url: "" },
+        { name: "デンソーのSDGs", url: "" },
+        { name: "環境への取り組み", url: "" },
+        { name: "社会への取り組み", url: "" },
+        { name: "ガバナンス", url: "" },
+        { name: "データライブラリー", url: "" },
+        { name: "社会貢献活動 ", url: "" },
+        { name: "地域創生への貢献 ", url: "" },
+      ],
     ],
   },
   {
@@ -328,41 +352,22 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
       },
     ],
-    tabPanels: [
-      { name: "会社概要", url: "" },
-      { name: "理念", url: "" },
-      { name: "経営方針", url: "" },
-      { name: "役員", url: "" },
-      { name: "グローバル拠点情報", url: "" },
-      { name: "スポーツ・展示ホール・工場見学", url: "" },
-      { name: "ブランドパーパス", url: "" },
-      { name: "プロモーション", url: "" },
-    ],
+    tabPanelsList: [],
   },
   {
     label: "採用",
     href: "#",
-    tabPanels: [
-      { name: "グローバル拠点情報", url: "" },
-      { name: "会社概要", url: "" },
-      { name: "理念", url: "" },
-      { name: "スポーツ・展示ホール・工場見学", url: "" },
-    ],
   },
   {
     label: "ニュース",
     href: "#",
-    tabPanels: [
-      { name: "会社概要", url: "" },
-      { name: "理念", url: "" },
-    ],
+
+    tabPanelsList: [],
   },
   {
     label: "DRIVEN BASE",
     href: "#",
-    tabPanels: [
-      { name: "会社概要", url: "" },
-      { name: "理念", url: "" },
-    ],
+
+    tabPanelsList: [],
   },
 ];

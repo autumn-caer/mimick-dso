@@ -19,5 +19,5 @@ export interface NavItem {
   subLabel?: string;
   children?: Array<NavItem>;
   href?: string;
-  tabPanels?: Array<TabPanel>;
+  tabPanelsList?: Array<Array<TabPanel>>;
 }

@@ -19,7 +19,7 @@ export default function Layout({
   home: Boolean;
 }) {
   return (
-    <Box className={styles.container}>
+    <Box className={styles.container} maxWidth="calc(100% - 80px)">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
