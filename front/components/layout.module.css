@@ -12,3 +12,29 @@ align-items: center;
 .backToHome {
 margin: 3rem 0 0;
 }
+
+.arrow::after {
+    content: ">";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    color: #dc0032;
+    font-size: .625rem;
+    line-height: 30px!important;
+    text-align: center;
+    background-color: #fff;
+    -webkit-transition: background-color .2s ease-out,color .2s ease-out;
+    transition: background-color .2s ease-out,color .2s ease-out
+}
+
+.arrow:hover:after {
+  color: #fff;
+  background-color: #dc0032
+}
+
+.img:hover {
+  -webkit-transform: scale(1.02);
+  transform: scale(1.02)
+}

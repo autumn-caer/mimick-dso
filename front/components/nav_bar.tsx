@@ -28,6 +28,7 @@ import {
 
 import { TabPanels } from "./elements/tab_panels";
 import { TabPanel, NavItem } from "../interfaces";
+import styles from "./layout.module.css";
 
 export const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -176,8 +177,21 @@ const NavContents: React.FC<NavContents> = ({ showCollapseIndex }) => {
                     w="33%"
                     flexBasis="33%"
                   >
-                    <Stack w="100%">
-                      <Box height="80px" bgImage="url('/logo.svg')" />
+                    <Stack
+                      w="100%"
+                      as={Link}
+                      overflow="hidden"
+                      position="relative"
+                    >
+                      <Box className={styles.arrow}>
+                        <Box
+                          className={styles.img}
+                          height="80px"
+                          backgroundSize="cover"
+                          bgImage="url('/corporate-info-img-main.jpg')"
+                          backgroundPosition="center 20%!important"
+                        ></Box>
+                      </Box>
                     </Stack>
 
                     <TabPanels
@@ -313,7 +327,6 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
       },
     ],
-
     tabPanelsList: [
       [
         { name: "会社概要", url: "" },
@@ -336,6 +349,17 @@ const NAV_ITEMS: Array<NavItem> = [
         { name: "社会貢献活動 ", url: "" },
         { name: "地域創生への貢献 ", url: "" },
       ],
+      [
+        { name: "決算資料", url: "" },
+        { name: "統合報告書", url: "" },
+        { name: "財務・実績データ", url: "" },
+        { name: "株式・社債情報", url: "" },
+        { name: "有価証券報告書", url: "" },
+        { name: "株主の皆様へ", url: "" },
+        { name: "事業説明会", url: "" },
+        { name: "個人投資家の皆様へ", url: "" },
+        { name: "よくいただくご質問（FAQ）", url: "" },
+      ],
     ],
   },
   {
@@ -352,11 +376,54 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
       },
     ],
-    tabPanelsList: [],
+    tabPanelsList: [
+      [
+        { name: "Mobility Well-being", url: "" },
+        { name: "Food Well-being", url: "" },
+      ],
+      [
+        { name: "半導体", url: "" },
+        { name: "MaaSテクノロジー ", url: "" },
+        { name: "量子コンピューティング", url: "" },
+        { name: "デンソーテクニカルレビュー", url: "" },
+      ],
+      [
+        { name: "サーマルマネージメント&エアコンシステム", url: "" },
+        { name: "パワートレインシステム", url: "" },
+        { name: "セーフティ&コックピットシステム", url: "" },
+        { name: "自動車補修用部品・アクセサリー", url: "" },
+        { name: "修理サービス", url: "" },
+        { name: "その他の産業", url: "" },
+        { name: "インダストリー", url: "" },
+        { name: "フードバリューチェーン", url: "" },
+        { name: "ホーム", url: "" },
+      ],
+    ],
   },
   {
     label: "採用",
     href: "#",
+    tabPanelsList: [
+      [
+        { name: "会社を知る", url: "" },
+        { name: "仕事を知る", url: "" },
+        { name: "成長したいを後押しする環境", url: "" },
+        { name: "自分らしく活躍できる場所（D&I）", url: "" },
+        { name: "採用情報", url: "" },
+        { name: "グループ会社採用", url: "" },
+      ],
+      [
+        { name: "ジョブサーチ", url: "" },
+        { name: "キャリア登録 ", url: "" },
+      ],
+      [
+        { name: "生産関係職（製造人材）", url: "" },
+        { name: "デンソー工業学園", url: "" },
+        { name: "生産関係職（開発技能）", url: "" },
+        { name: "生産関係職", url: "" },
+        { name: "期間従業員", url: "" },
+      ],
+    ],
   },
   {
     label: "ニュース",
@@ -365,7 +432,7 @@ const NAV_ITEMS: Array<NavItem> = [
     tabPanelsList: [],
   },
   {
-    label: "DRIVEN BASE",
+    label: "Driven Base",
     href: "#",
 
     tabPanelsList: [],
