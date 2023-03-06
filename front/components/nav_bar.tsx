@@ -168,8 +168,8 @@ const NavContents: React.FC<NavContents> = ({ showCollapseIndex }) => {
             justify="start"
             py={{ base: "12", md: "16" }}
           >
-            {navItem.tabPanelsList &&
-              navItem.tabPanelsList.map((tabPanels, _) => {
+            {navItem.tabCards &&
+              navItem.tabCards.map((tabCard, _) => {
                 return (
                   <VStack
                     spacing="4"
@@ -185,17 +185,37 @@ const NavContents: React.FC<NavContents> = ({ showCollapseIndex }) => {
                     >
                       <Box className={styles.arrow}>
                         <Box
+                          position="relative"
                           className={styles.img}
                           height="80px"
                           backgroundSize="cover"
-                          bgImage="url('/corporate-info-img-main.jpg')"
-                          backgroundPosition="center 20%!important"
-                        ></Box>
+                          bgImage={`url(${tabCard.image})`}
+                          backgroundColor="rgba(0,0,0,0.5)"
+                          _before={{
+                            content: `""`,
+                            position: "absolute",
+                            top: 0,
+                            right: 0,
+                            left: 0,
+                            bottom: 0,
+                            backgroundColor: "rgba(0,0,0,0.3)",
+                          }}
+                        >
+                          <Box
+                            position="absolute"
+                            left="5%"
+                            top="30%"
+                            fontSize="1.25em"
+                            color="white"
+                            fontWeight="bold"
+                          >
+                            {tabCard.title}
+                          </Box>
+                        </Box>
                       </Box>
                     </Stack>
-
                     <TabPanels
-                      tabPanels={tabPanels ? tabPanels : []}
+                      tabPanels={tabCard.tabPanels ? tabCard.tabPanels : []}
                       flexBasis={["100%", "100%", "100%", "100%"]}
                     />
                   </VStack>
@@ -327,39 +347,51 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
       },
     ],
-    tabPanelsList: [
-      [
-        { name: "会社概要", url: "" },
-        { name: "理念", url: "" },
-        { name: "経営方針", url: "" },
-        { name: "役員", url: "" },
-        { name: "グローバル拠点情報", url: "" },
-        { name: "スポーツ・展示ホール・工場見学", url: "" },
-        { name: "ブランドパーパス", url: "" },
-        { name: "プロモーション", url: "" },
-      ],
-      [
-        { name: "CEOメッセージ", url: "" },
-        { name: "サステナビリティマネジメント", url: "" },
-        { name: "デンソーのSDGs", url: "" },
-        { name: "環境への取り組み", url: "" },
-        { name: "社会への取り組み", url: "" },
-        { name: "ガバナンス", url: "" },
-        { name: "データライブラリー", url: "" },
-        { name: "社会貢献活動 ", url: "" },
-        { name: "地域創生への貢献 ", url: "" },
-      ],
-      [
-        { name: "決算資料", url: "" },
-        { name: "統合報告書", url: "" },
-        { name: "財務・実績データ", url: "" },
-        { name: "株式・社債情報", url: "" },
-        { name: "有価証券報告書", url: "" },
-        { name: "株主の皆様へ", url: "" },
-        { name: "事業説明会", url: "" },
-        { name: "個人投資家の皆様へ", url: "" },
-        { name: "よくいただくご質問（FAQ）", url: "" },
-      ],
+    tabCards: [
+      {
+        image: "/corporate-info-img-main.jpg",
+        title: "企業情報",
+        tabPanels: [
+          { name: "会社概要", url: "" },
+          { name: "理念", url: "" },
+          { name: "経営方針", url: "" },
+          { name: "役員", url: "" },
+          { name: "グローバル拠点情報", url: "" },
+          { name: "スポーツ・展示ホール・工場見学", url: "" },
+          { name: "ブランドパーパス", url: "" },
+          { name: "プロモーション", url: "" },
+        ],
+      },
+      {
+        image: "/sustainability-img-main.jpg",
+        title: "サステナビリティ",
+        tabPanels: [
+          { name: "CEOメッセージ", url: "" },
+          { name: "サステナビリティマネジメント", url: "" },
+          { name: "デンソーのSDGs", url: "" },
+          { name: "環境への取り組み", url: "" },
+          { name: "社会への取り組み", url: "" },
+          { name: "ガバナンス", url: "" },
+          { name: "データライブラリー", url: "" },
+          { name: "社会貢献活動 ", url: "" },
+          { name: "地域創生への貢献 ", url: "" },
+        ],
+      },
+      {
+        image: "investors-img-main.jpg",
+        title: "投資家情報",
+        tabPanels: [
+          { name: "決算資料", url: "" },
+          { name: "統合報告書", url: "" },
+          { name: "財務・実績データ", url: "" },
+          { name: "株式・社債情報", url: "" },
+          { name: "有価証券報告書", url: "" },
+          { name: "株主の皆様へ", url: "" },
+          { name: "事業説明会", url: "" },
+          { name: "個人投資家の皆様へ", url: "" },
+          { name: "よくいただくご質問（FAQ）", url: "" },
+        ],
+      },
     ],
   },
   {
@@ -376,65 +408,95 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
       },
     ],
-    tabPanelsList: [
-      [
-        { name: "Mobility Well-being", url: "" },
-        { name: "Food Well-being", url: "" },
-      ],
-      [
-        { name: "半導体", url: "" },
-        { name: "MaaSテクノロジー ", url: "" },
-        { name: "量子コンピューティング", url: "" },
-        { name: "デンソーテクニカルレビュー", url: "" },
-      ],
-      [
-        { name: "サーマルマネージメント&エアコンシステム", url: "" },
-        { name: "パワートレインシステム", url: "" },
-        { name: "セーフティ&コックピットシステム", url: "" },
-        { name: "自動車補修用部品・アクセサリー", url: "" },
-        { name: "修理サービス", url: "" },
-        { name: "その他の産業", url: "" },
-        { name: "インダストリー", url: "" },
-        { name: "フードバリューチェーン", url: "" },
-        { name: "ホーム", url: "" },
-      ],
+    tabCards: [
+      {
+        image: "/vision-img-main.jpg",
+        title: "ビジョン",
+        tabPanels: [
+          { name: "Mobility Well-being", url: "" },
+          { name: "Food Well-being", url: "" },
+        ],
+      },
+      {
+        image: "/innovation-img-main.jpg",
+        title: "イノベーション",
+        tabPanels: [
+          { name: "半導体", url: "" },
+          { name: "MaaSテクノロジー ", url: "" },
+          { name: "量子コンピューティング", url: "" },
+          { name: "デンソーテクニカルレビュー", url: "" },
+        ],
+      },
+      {
+        image: "/products-and-services-img-main.jpg",
+        title: "製品サービス",
+        tabPanels: [
+          { name: "サーマルマネージメント&エアコンシステム", url: "" },
+          { name: "パワートレインシステム", url: "" },
+          { name: "セーフティ&コックピットシステム", url: "" },
+          { name: "自動車補修用部品・アクセサリー", url: "" },
+          { name: "修理サービス", url: "" },
+          { name: "その他の産業", url: "" },
+          { name: "インダストリー", url: "" },
+          { name: "フードバリューチェーン", url: "" },
+          { name: "ホーム", url: "" },
+        ],
+      },
     ],
   },
   {
     label: "採用",
     href: "#",
-    tabPanelsList: [
-      [
-        { name: "会社を知る", url: "" },
-        { name: "仕事を知る", url: "" },
-        { name: "成長したいを後押しする環境", url: "" },
-        { name: "自分らしく活躍できる場所（D&I）", url: "" },
-        { name: "採用情報", url: "" },
-        { name: "グループ会社採用", url: "" },
-      ],
-      [
-        { name: "ジョブサーチ", url: "" },
-        { name: "キャリア登録 ", url: "" },
-      ],
-      [
-        { name: "生産関係職（製造人材）", url: "" },
-        { name: "デンソー工業学園", url: "" },
-        { name: "生産関係職（開発技能）", url: "" },
-        { name: "生産関係職", url: "" },
-        { name: "期間従業員", url: "" },
-      ],
+    tabCards: [
+      {
+        image: "/entry-img-main.png",
+        title: "新卒総合職採用サイト",
+        tabPanels: [
+          { name: "会社を知る", url: "" },
+          { name: "仕事を知る", url: "" },
+          { name: "成長したいを後押しする環境", url: "" },
+          { name: "自分らしく活躍できる場所（D&I）", url: "" },
+          { name: "採用情報", url: "" },
+          { name: "グループ会社採用", url: "" },
+        ],
+      },
+      {
+        image: "/career-img-main.jpg",
+        title: "キャリア採用サイト",
+        tabPanels: [
+          { name: "ジョブサーチ", url: "" },
+          { name: "キャリア登録 ", url: "" },
+        ],
+      },
+      {
+        image: "/opportunities-img-main.jpg",
+        title: "技能職・期間従業員採用",
+        tabPanels: [
+          { name: "生産関係職（製造人材）", url: "" },
+          { name: "デンソー工業学園", url: "" },
+          { name: "生産関係職（開発技能）", url: "" },
+          { name: "生産関係職", url: "" },
+          { name: "期間従業員", url: "" },
+        ],
+      },
     ],
   },
   {
     label: "ニュース",
     href: "#",
 
-    tabPanelsList: [],
+    tabCards: [
+      {
+        image: "/newsroom-img-main.jpg",
+        title: "ニュースルーム",
+        tabPanels: [],
+      },
+    ],
   },
   {
     label: "Driven Base",
     href: "#",
 
-    tabPanelsList: [],
+    tabCards: [],
   },
 ];

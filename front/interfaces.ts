@@ -14,10 +14,16 @@ export interface TabPanelsPorps {
   flexBasis?: Array<string | number | (string & {})>;
 }
 
+export interface TabCard {
+  image: string;
+  title: string;
+  tabPanels: Array<TabPanel>;
+}
 export interface NavItem {
   label: string;
   subLabel?: string;
   children?: Array<NavItem>;
   href?: string;
+  tabCards?: Array<TabCard>;
   tabPanelsList?: Array<Array<TabPanel>>;
 }
