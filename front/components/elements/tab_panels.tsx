@@ -9,6 +9,8 @@ import {
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { TabPanelsPorps } from "../../interfaces";
 
+import { ArrowRightIcon } from "./arrow_right_icon";
+
 export const TabPanels: React.FC<TabPanelsPorps> = ({
   tabPanels,
   flexBasis,
@@ -40,12 +42,7 @@ export const TabPanels: React.FC<TabPanelsPorps> = ({
               transition: "0.5s", //ホバーしたら出てくる
             }}
           >
-            <IconButton
-              variant="link"
-              aria-label="LinkedIn"
-              icon={<ArrowForwardIcon fontSize="1.25rem" />}
-            />
-            {footer_link.name}
+            <ArrowRightIcon displayText={footer_link.name} />
           </WrapItem>
         );
       })}
