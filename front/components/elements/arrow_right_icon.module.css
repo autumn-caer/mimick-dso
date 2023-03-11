@@ -1,5 +1,4 @@
 .arrowRight {
-    /* box-sizing: border-box; */
     display: block;
     position: relative;
     width: 21px !important;
@@ -7,6 +6,21 @@
     border: solid 2px #000;
     border-radius: 50%;
     box-shadow: 0 3px 10px rgb(0 0 0 / 16%);
+  }
+
+  .arrowRight:before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 45%;
+    width: 5px;
+    height:5px;
+    border-style: solid;
+    border-color: #000;
+    border-width: 1px 0 0 1px;
+    transform: translate(-50%, -50%) rotate(135deg);
+    transition: border-color ease 0.1s;
   }
   
   .arrowRight:after {
@@ -30,19 +44,3 @@
   div:has(> .arrowRight):hover > .arrowRight::before {
     border-color: #fff;
   }
-
-  .arrowRight:before {
-    content: "";
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 45%;
-    width: 5px;
-    height:5px;
-    border-style: solid;
-    border-color: #000;
-    border-width: 1px 0 0 1px;
-    transform: translate(-50%, -50%) rotate(135deg);
-    transition: border-color ease 0.1s;
-  }
-  

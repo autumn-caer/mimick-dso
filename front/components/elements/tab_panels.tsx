@@ -10,6 +10,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { TabPanelsPorps } from "../../interfaces";
 
 import { ArrowRightIcon } from "./arrow_right_icon";
+import { ArrowRightIconWithChakra } from "./arrow_right_icon_with_chakra";
 
 export const TabPanels: React.FC<TabPanelsPorps> = ({
   tabPanels,
@@ -42,7 +43,7 @@ export const TabPanels: React.FC<TabPanelsPorps> = ({
               transition: "0.5s", //ホバーしたら出てくる
             }}
           >
-            <ArrowRightIcon displayText={footer_link.name} />
+            <ArrowRightIconWithChakra displayText={footer_link.name} />
           </WrapItem>
         );
       })}
